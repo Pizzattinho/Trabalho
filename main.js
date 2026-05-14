@@ -1,19 +1,30 @@
 const botoes = document.querySelectorAll(".botao");
-console.log(botoes);
-for (let i = 0; i < botoes.length; i++) {
-  console.log(i);
-}
-for (let i = 0; i < botoes.length; i++) {
-  botoes[i].onclick = function () {
-    for (let j = 0; j < botoes.length; j++) {
-      botoes[j].classList.remove("ativo");
-    }
 
-    botoes[i].classList.add("ativo");
-  };
-}
-const contadores = document.querySelectorAll(".contador");
-const tempoObjetivo1 = new Date("2023-10-05T00:00:00");
-let tempoAtual = new Date();
+botoes.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    document.querySelector(".botao.ativo")?.classList.remove("ativo");
+    botao.classList.add("ativo");
+  });
+});
 
-contadores[0].textContent = tempoObjetivo1 - tempoAtual;
+function showOffsetPos(sId) {
+  const elemento = document.getElementById(sId);
+  
+  if (!elemento) {
+    console.warn(`Elemento com id "${sId}" não encontrado.`);
+    return;
+  }
+
+  // Pega a posição relativa à viewport + o scroll atual da página
+  const rect = elemento.getBoundingClientRect();
+  const absoluteTop = rect.top + window.scrollY;
+  const absoluteLeft = rect.left + window.scrollX;
+
+  console.log(
+    `Posição de "${sId}":\n` +
+    `Esquerda: ${absoluteLeft}px;\n` +
+    `Topo: ${absoluteTop}px;`
+  );
+}
+
+showOffsetPos("content");
